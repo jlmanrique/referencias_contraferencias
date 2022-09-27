@@ -1,0 +1,3 @@
+org/acme/kafka/model/ReferenciaDeserializer.class
+org/acme/kafka/model/Referencia.class
+org/acme/kafka/producer/ReferenciasResource.class
