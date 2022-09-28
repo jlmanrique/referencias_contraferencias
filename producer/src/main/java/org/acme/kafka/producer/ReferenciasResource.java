@@ -1,12 +1,14 @@
 package org.acme.kafka.producer;
 
-import java.util.UUID;
+import java.net.URI;
 
+import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.MediaType;
 
 import org.acme.kafka.model.Referencia;
@@ -28,10 +30,10 @@ public class ReferenciasResource {
     @Path("/request")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_PLAIN)
-    public String createRequest(Referencia referencia) {
-        UUID uuid = UUID.randomUUID();
+    public Response createRequest(@BeanParam Referencia referencia) throws Exception {
         quoteRequestEmitter.send(referencia);
-        return uuid.toString();
+        URI uri = new URI("/referencias.html");
+        return Response.status(302).location(uri).build();
     }
 
     @Channel("referencias")
